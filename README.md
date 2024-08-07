@@ -7,7 +7,7 @@ MACOS x64: app-macos-x64
 MACOS ARM: app-macos-arm
 LINUX: app-linux
 
-Then simply run it with ./<filename>
+Then simply run it with ./'filename'
 
 TESTING
 
