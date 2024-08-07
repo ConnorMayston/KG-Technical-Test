@@ -41,7 +41,15 @@ func (p *pig) play() {
 			}
 
 			if answer == "a" {
-				endTurn = p.optionA(&sum)
+				onesRolled := 0
+				for i := 0; i < 2; i++ {
+					roll := p.dice.roll()
+					if roll == 1 {
+						onesRolled++
+					}
+					sum += roll
+				}
+				endTurn = p.optionA(&sum, onesRolled)
 			} else if answer == "b" {
 				p.optionB(sum)
 				endTurn = true
@@ -50,15 +58,7 @@ func (p *pig) play() {
 	}
 }
 
-func (p *pig) optionA(sum *int) bool {
-	onesRolled := 0
-	for i := 0; i < 2; i++ {
-		roll := p.dice.roll()
-		if roll == 1 {
-			onesRolled++
-		}
-		*sum += roll
-	}
+func (p *pig) optionA(sum *int, onesRolled int) bool {
 
 	if p.decideEndTurn(onesRolled, *sum) {
 		return true
@@ -87,6 +87,7 @@ func (p *pig) decideEndTurn(onesRolled int, sum int) bool {
 		return true
 	}
 
+	//Can likely be taken a level higher and then sum doesn't need to be passed down and easier testing?
 	if (sum + p.getCurrentPlayer().score) > 100 {
 		p.win()
 	}
