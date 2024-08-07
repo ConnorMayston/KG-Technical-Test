@@ -4,22 +4,43 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 func main() {
-	fmt.Println("WELCOME to Pig! Please enter 2 names in the following prompts to get started!")
+	fmt.Println("WELCOME to Pig! Please enter the number of players!")
 	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Print("First Name: ")
-	name, _ := reader.ReadString('\n')
-	player1 := createPlayer(strings.TrimRight(name, "\n"))
+	fmt.Print("Number of players: ")
 
-	fmt.Print("Second Name: ")
-	name, _ = reader.ReadString('\n')
-	player2 := createPlayer(strings.TrimRight(name, "\n"))
+	validNumber := false
 
-	pig := createGame([]player{player1, player2})
+	numPlayers := 0
+
+	for !validNumber {
+		numPlayersStr, _ := reader.ReadString('\n')
+
+		var err error
+
+		numPlayers, err = strconv.Atoi(strings.TrimRight(numPlayersStr, "\n"))
+
+		if err != nil {
+			fmt.Println("Please enter a positive valid integer")
+		} else {
+			validNumber = true
+		}
+	}
+
+	players := []player{}
+
+	for i := 0; i < numPlayers; i++ {
+		fmt.Printf("Please enter name %d: ", i+1)
+		name, _ := reader.ReadString('\n')
+		players = append(players, createPlayer(strings.TrimRight(name, "\n")))
+	}
+
+	pig := createGame(players)
 
 	pig.play()
 }
