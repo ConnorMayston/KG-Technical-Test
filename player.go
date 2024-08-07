@@ -5,6 +5,7 @@ type player struct {
 	score int
 }
 
+// Constructor for player
 func createPlayer(name string) player {
 	return player{
 		name:  name,
@@ -12,10 +13,12 @@ func createPlayer(name string) player {
 	}
 }
 
+// Resets player score
 func (p *player) resetScore() {
 	p.score = 0
 }
 
+// Increases player score
 func (p *player) increaseScore(s int) {
 	p.score += s
 }

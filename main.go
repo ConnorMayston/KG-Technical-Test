@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// Maybe modularized further as well? Not sure if there are many benefits to such though, possibly readability?
 func main() {
 	fmt.Println("WELCOME to Pig! Please enter the number of players!")
 	reader := bufio.NewReader(os.Stdin)

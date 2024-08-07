@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+// Tests creating a new player object
 func TestNewPlayer(t *testing.T) {
 	player := createPlayer("name")
 
@@ -16,6 +17,7 @@ func TestNewPlayer(t *testing.T) {
 	}
 }
 
+// Test to see if resetting a players score works
 func TestResetScore(t *testing.T) {
 	player := createPlayer("name")
 
@@ -26,6 +28,7 @@ func TestResetScore(t *testing.T) {
 	}
 }
 
+// Test to see if increasing a players score works
 func TestIncreaseScore(t *testing.T) {
 	player := createPlayer("name")
 

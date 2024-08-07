@@ -4,6 +4,9 @@ import (
 	"testing"
 )
 
+//THOUGHTS: Play game wasn't incredibly easily testable, likely needed some refactoring in pig file to accomodate
+
+// Test to see if creating a game obj works
 func TestCreateGame(t *testing.T) {
 	p := createGame([]player{
 		{
@@ -45,6 +48,7 @@ func TestCreateGame(t *testing.T) {
 	}
 }
 
+// Test to see the possibilites of options passed into OptionA function
 func TestOptionA(t *testing.T) {
 	p := createGame([]player{
 		createPlayer("name1"),
@@ -78,6 +82,7 @@ func TestOptionA(t *testing.T) {
 	}
 }
 
+// Test to see the possibilites of options passed into OptionB function
 func TestOptionB(t *testing.T) {
 	p := createGame([]player{
 		createPlayer("name1"),
@@ -105,6 +110,7 @@ func TestOptionB(t *testing.T) {
 	}
 }
 
+// Test to see if 3 choices in Decide end turn work correctly
 func TestDecideEndTurn(t *testing.T) {
 	p := createGame([]player{
 		createPlayer("name1"),
@@ -147,6 +153,7 @@ func TestDecideEndTurn(t *testing.T) {
 
 }
 
+// Test to see if next player works
 func TestNextPlayer(t *testing.T) {
 	p := createGame([]player{
 		createPlayer("name1"),

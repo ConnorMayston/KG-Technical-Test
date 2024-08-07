@@ -13,6 +13,7 @@ type pig struct {
 	dice            dice
 }
 
+// Constructor for pig game
 func createGame(players []player) pig {
 	return pig{
 		players:         players,
@@ -21,6 +22,8 @@ func createGame(players []player) pig {
 	}
 }
 
+// Plays pig game
+// THOUGHT: could have maybe been further 'modularized' to allow for even easier testing perhaps
 func (p *pig) play() {
 
 	for {
@@ -58,6 +61,7 @@ func (p *pig) play() {
 	}
 }
 
+// Function for logic if option a is chosen
 func (p *pig) optionA(sum *int, onesRolled int) bool {
 
 	if p.decideEndTurn(onesRolled, *sum) {
@@ -68,11 +72,13 @@ func (p *pig) optionA(sum *int, onesRolled int) bool {
 	return false
 }
 
+// Function if option b is chosen
 func (p *pig) optionB(sum int) {
 	p.getCurrentPlayer().increaseScore(sum)
 	p.nextPlayer()
 }
 
+// Function to decide what happens based on how many ones were rolled
 func (p *pig) decideEndTurn(onesRolled int, sum int) bool {
 	if onesRolled == 1 {
 		fmt.Printf("\nBecause you rolled a ONE. Your score has been reset to %d.\n", p.getCurrentPlayer().score)
@@ -94,6 +100,7 @@ func (p *pig) decideEndTurn(onesRolled int, sum int) bool {
 	return false
 }
 
+// Changes turn to next player
 func (p *pig) nextPlayer() {
 	if p.playerTurnIndex == len(p.players)-1 {
 		p.playerTurnIndex = 0
@@ -102,11 +109,13 @@ func (p *pig) nextPlayer() {
 	}
 }
 
+// Called if current player wins
 func (p *pig) win() {
 	fmt.Printf("\nCongratulations %s! You have won!", p.getCurrentPlayer().name)
 	os.Exit(0)
 }
 
+// Returns current player, helper function
 func (p *pig) getCurrentPlayer() *player {
 	return &p.players[p.playerTurnIndex]
 }
