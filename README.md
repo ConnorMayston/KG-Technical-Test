@@ -1,5 +1,9 @@
 KG-Technical-Test
 
+Description:
+
+Game PIG (2 dice version) with n amount of players written in golang, created by Connor Mayston
+
 To run, please find your operating system and chip set architecture inside the "bin" folder:
 
 WINDOWS: app-windows.exe
