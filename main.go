@@ -26,7 +26,9 @@ func main() {
 		numPlayers, err = strconv.Atoi(strings.TrimRight(numPlayersStr, "\n"))
 
 		if err != nil {
-			fmt.Println("Please enter a positive valid integer")
+			fmt.Println("Please enter a valid integer")
+		} else if numPlayers < 2 {
+			fmt.Println("You have to have at least 2 players, please enter a number again")
 		} else {
 			validNumber = true
 		}
