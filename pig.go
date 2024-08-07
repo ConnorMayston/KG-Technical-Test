@@ -41,43 +41,56 @@ func (p *pig) play() {
 			}
 
 			if answer == "a" {
-				onesRolled := 0
-				for i := 0; i < 2; i++ {
-					roll := p.dice.roll()
-					if roll == 1 {
-						onesRolled++
-					}
-					sum += roll
-				}
-
-				if onesRolled == 1 {
-					fmt.Printf("\nBecause you rolled a ONE. Your score has been reset to %d.\n", p.getCurrentPlayer().score)
-					endTurn = true
-					p.nextPlayer()
-					break
-				}
-
-				if onesRolled == 2 {
-					fmt.Println("\nBecause you rolled snakes eyes (Two one's). Your score has been reset to 0!.")
-					p.getCurrentPlayer().resetScore()
-					endTurn = true
-					p.nextPlayer()
-					break
-				}
-
-				if (sum + p.getCurrentPlayer().score) > 100 {
-					p.win()
-				}
-
-				fmt.Printf("%s's score is now %d\n\n", p.getCurrentPlayer().name, p.getCurrentPlayer().score+sum)
+				endTurn = p.optionA(&sum)
 			} else if answer == "b" {
+				p.optionB(sum)
 				endTurn = true
-				p.getCurrentPlayer().increaseScore(sum)
-				p.nextPlayer()
 			}
 		}
 	}
+}
 
+func (p *pig) optionA(sum *int) bool {
+	onesRolled := 0
+	for i := 0; i < 2; i++ {
+		roll := p.dice.roll()
+		if roll == 1 {
+			onesRolled++
+		}
+		*sum += roll
+	}
+
+	if p.decideEndTurn(onesRolled, *sum) {
+		return true
+	}
+
+	fmt.Printf("%s's score is now %d\n\n", p.getCurrentPlayer().name, p.getCurrentPlayer().score+(*sum))
+	return false
+}
+
+func (p *pig) optionB(sum int) {
+	p.getCurrentPlayer().increaseScore(sum)
+	p.nextPlayer()
+}
+
+func (p *pig) decideEndTurn(onesRolled int, sum int) bool {
+	if onesRolled == 1 {
+		fmt.Printf("\nBecause you rolled a ONE. Your score has been reset to %d.\n", p.getCurrentPlayer().score)
+		p.nextPlayer()
+		return true
+	}
+
+	if onesRolled == 2 {
+		fmt.Println("\nBecause you rolled snakes eyes (Two one's). Your score has been reset to 0!.")
+		p.getCurrentPlayer().resetScore()
+		p.nextPlayer()
+		return true
+	}
+
+	if (sum + p.getCurrentPlayer().score) > 100 {
+		p.win()
+	}
+	return false
 }
 
 func (p *pig) nextPlayer() {
